@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  web:
+    image: steveltn/https-portal:1.0.0
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - app
+    environment:
+      DOMAINS: 'example.com => http://php-fpm:9000'
+      STAGE: 'local'
+  app:
+    build: php-fpm
+    links:
+      - db
+    volumes:
+      - ./src:/var/www/html
+  data:
+    image: busybox
+    volumes:
+      - ./misc/data:/var/lib/mysql
+  db:
+    build: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes_from:
+      - data
