@@ -1,5 +1,6 @@
 misc/data/*
 src/*
+.env
 
 !.gitkeep
 !src/local.docker/public/index.php
