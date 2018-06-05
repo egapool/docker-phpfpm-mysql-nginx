@@ -1,14 +1,25 @@
+map $sent_http_content_type $expires {
+    "text/html"                 epoch;
+    "text/html; charset=utf-8"  epoch;
+    default                     off;
+}
+
 server {
     listen       80;
     server_name  ${DOMAIN};
 
+    gzip            on;
+    gzip_types      text/plain application/xml text/css application/javascript;
+    gzip_min_length 1000;
+
+    root      ${DOC_ROOT};
+
     location / {
-        root      ${DOC_ROOT};
-        try_files $uri /index.php?$query_string;
+        index  index.php index.html index.htm;
+        try_files $uri $uri/ /index.php?$query_string;
     }
 
     location ~ \.php$ {
-        root          ${DOC_ROOT};
         fastcgi_pass  app:9000;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;

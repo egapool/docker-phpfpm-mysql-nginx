@@ -1,4 +1,8 @@
-FROM php:7.1.9-fpm
+FROM php:7.1.9
+
+# for xdebug by CLI with PhpStorm
+ENV PHP_IDE_CONFIG "serverName=Docker"
+
 
 ADD php.ini /usr/local/etc/php/conf.d/php.ini
 
