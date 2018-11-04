@@ -8,6 +8,9 @@ server {
     listen       80;
     server_name  ${DOMAIN};
 
+    client_max_body_size 20M;
+    fastcgi_read_timeout 600;
+
     gzip            on;
     gzip_types      text/plain application/xml text/css application/javascript;
     gzip_min_length 1000;
