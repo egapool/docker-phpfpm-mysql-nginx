@@ -13,8 +13,30 @@ cp .env.sample .env
 * PUBLIC_DIR=プロジェクトルートからdocument rootまでの相対パス。先頭に「/」はつけない
 
 
+
+ビルド
 ```
-docker-compose up --build
+$ docker-compose up --build
 ```
+
+バックグランド起動
+```
+$ docker-compose up -d
+```
+
+終了
+```
+$ docker-compose stop
+```
+
+PHP CLIの実行
+```
+$ docker-compose run php-cli php {command}
+
+// 例
+$ docker-compose run php-cli php -v
+```
+
+
 
 see http://localhost:8000 or http://your.domain:8000
