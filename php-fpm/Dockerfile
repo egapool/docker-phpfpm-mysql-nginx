@@ -2,10 +2,19 @@ FROM php:7.1.9-fpm
 
 ADD php.ini /usr/local/etc/php/conf.d/php.ini
 
-RUN apt-get update \
-    && apt-get install -y libmcrypt-dev mysql-client \
-    && apt-get install -y zip unzip git libzip-dev \
-    && apt-get install -y vim
+RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list &&\
+    echo "deb http://security.debian.org jessie/updates main" >> /etc/apt/sources.list &&\
+    apt-get update && apt-get install -y \
+    libmcrypt-dev \
+    mysql-client \
+    zip \
+    unzip \
+    git \
+    libzip-dev \
+    vim \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng12-dev
 
 RUN git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis
 
